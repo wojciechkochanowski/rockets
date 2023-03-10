@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model star {
+  id           Int      @id(map: "stars_pkey") @default(autoincrement())
+  x            Decimal  @db.Decimal
+  y            Decimal  @db.Decimal
+  z            Decimal  @db.Decimal
+  distance     Decimal  @db.Decimal
+  officialName String?  @db.VarChar
+  hd           Int?
+  hr           Int?
+  colorIndex   Decimal? @db.Decimal
+  magnitude    Decimal? @db.Decimal
+}
