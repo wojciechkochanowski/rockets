@@ -8,14 +8,15 @@ datasource db {
 }
 
 model star {
-  id           Int      @id(map: "stars_pkey") @default(autoincrement())
-  x            Decimal  @db.Decimal
-  y            Decimal  @db.Decimal
-  z            Decimal  @db.Decimal
-  distance     Decimal  @db.Decimal
-  officialName String?  @db.VarChar
+  id           Int     @id(map: "stars_pkey") @default(autoincrement())
+  x            Float
+  y            Float
+  z            Float
+  distance     Float
+  officialName String? @db.VarChar
   hd           Int?
   hr           Int?
-  colorIndex   Decimal? @db.Decimal
-  magnitude    Decimal? @db.Decimal
+  colorIndex   Float?  @db.Real
+  magnitude    Float?  @db.Real
+  color        String? @db.VarChar(6)
 }
