@@ -6,7 +6,7 @@ const calculateSize = (magnitude: number):number => {
   if(magnitude<0) return 8
   if(magnitude<1) return 7
   if(magnitude<2) return 4
-  if(magnitude<3) return 2
+  if(magnitude<3) return 3
   return 1
 }
 
