@@ -60,7 +60,8 @@ function bv_to_rgb(bv:number) {
   // console.log(R*255)
   // console.log(G*255)
   // console.log(B*255)
-  return [Math.round(clamp(R*255)),Math.round(clamp(G*255)),Math.round(clamp(B*255))]
+  //return [Math.round(clamp(R*255)),Math.round(clamp(G*255)),Math.round(clamp(B*255))]
+  return [R,G,B]
 }
 
 const rgbToHex = (r:number, g:number, b:number) => {
@@ -75,20 +76,26 @@ export default async (
 ) => {
   try {
     const stars = await prisma.star.findMany()
-    let rgb = bv_to_rgb(stars[0].colorIndex || 0)
-    let result = stars[0].colorIndex+' => '+/*JSON.stringify(bv_to_rgb(stars[0].colorIndex || 0))+*/rgbToHex(rgb[0], rgb[1], rgb[2])
+    //let rgb = bv_to_rgb(stars[0].colorIndex || 0)
+    //let result = stars[0].colorIndex+' => '+/*JSON.stringify(bv_to_rgb(stars[0].colorIndex || 0))+*/rgbToHex(rgb[0], rgb[1], rgb[2])
     stars.map(async (star) => {
-      rgb = bv_to_rgb(star.colorIndex || 0)
-      result = rgbToHex(rgb[0], rgb[1], rgb[2])
-      console.log(star.colorIndex+' => '+result)
+      let rgb = [1, 1, 1]
+      if(star.colorIndex !== null){
+        rgb = bv_to_rgb(star.colorIndex || 0)
+      }
+      //result = rgbToHex(rgb[0], rgb[1], rgb[2])
+      console.log(star.colorIndex+' => '+JSON.stringify(rgb))
       const res = await prisma.star.update({
         where: { id: star.id },
-        data: { color: result },
+        data: { 
+          r: rgb[0],
+          g: rgb[1],
+          b: rgb[2]
+        },
       })
-      console.log(res.color)
     })
 
-    res.status(200).json(result)
+    res.status(200).json('done')
   } catch (error) {
     res.status(503)
   }
