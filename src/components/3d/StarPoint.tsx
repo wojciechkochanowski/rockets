@@ -1,18 +1,16 @@
 import { star } from "@prisma/client"
-import { useMemo } from "react"
-import { BufferAttribute, Color } from "three"
+import { BufferAttribute } from "three"
 
 const calculateSize = (magnitude: number):number => {
-  if(magnitude<0) return 8
-  if(magnitude<1) return 7
-  if(magnitude<2) return 4
-  if(magnitude<3) return 3
-  return 1
+  if(magnitude<0) return 1.6
+  if(magnitude<1) return 1.4
+  if(magnitude<2) return 0.8
+  if(magnitude<3) return 0.6
+  return 0.2
 }
 
 export default function StarPoint({star}:{star:star}) {
   const point = new BufferAttribute(new Float32Array([star.x, star.y, star.z]), 3);
-  //const mag = Math.pow((13 - star.magnitude) / 7, 2)
   
   const mag = calculateSize(star.magnitude)
 
@@ -27,8 +25,8 @@ export default function StarPoint({star}:{star:star}) {
       </bufferGeometry>
       <pointsMaterial
         size={mag}
-        color={/*new Color("#" + star.color)*/[star.r, star.g, star.b]}
-        sizeAttenuation={false}
+        color={[star.r, star.g, star.b]}
+        sizeAttenuation={true}
         toneMapped={star.magnitude > 1}
       />
     </points>
