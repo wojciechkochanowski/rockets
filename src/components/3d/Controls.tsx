@@ -1,6 +1,6 @@
 import { useRef } from "react"
-import { useFrame, useThree } from "@react-three/fiber"
-import { OrbitControls } from "@react-three/drei"
+import { useThree } from "@react-three/fiber"
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei"
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 
 function Controls() {
@@ -8,41 +8,29 @@ function Controls() {
 
   const { camera, gl: { domElement } } = useThree();
 
-  useFrame(({ gl, scene, camera }) => {
-    if (!controlsRef.current) {
-      return
-    }
-    const { x, y, z } = controlsRef.current.object.position
-    camera.lookAt(x * 2, y * 2, z * 2)
-    gl.render(scene, camera)
-  }, 1);
-
-  function handleWheel(this: HTMLCanvasElement, ev: WheelEvent):any {
-    if(ev.shiftKey) return
+  function handleWheel(this: HTMLCanvasElement, ev: WheelEvent): any {
     ev.stopPropagation()
-    const reversedEvent = new WheelEvent('wheel', {
-      deltaY: -1 * ev.deltaY,
-      deltaMode: ev.deltaMode,
-      shiftKey: true
-    })
-    domElement.dispatchEvent(reversedEvent)
-    console.log(ev.deltaY)
+    let newZoom = camera.zoom + -1*(ev.deltaY/1000)
+    if(newZoom < 1) newZoom = 1
+    if(newZoom > 10) newZoom = 10
+    if(controlsRef.current)
+      controlsRef.current.panSpeed = 2 * newZoom
+    camera.zoom = newZoom
+    camera.updateProjectionMatrix()
   }
-  //domElement.addEventListener("wheel", handleWheel);
+  domElement.addEventListener("wheel", handleWheel);
 
-  return <OrbitControls
-    args={[camera, domElement]}
-    target={[0, 0, 0]}
-    enableZoom={true}
-    reverseOrbit={false}
-    ref={controlsRef}
-    minDistance={10}
-    maxDistance={80}
-    screenSpacePanning={false}
-    onWheel={(event) => {
-      console.log(event)
-    }}
-  />
+  return <>
+    <OrbitControls
+      args={[camera, domElement]}
+      target={[0, 0, 0]}
+      enableZoom={false}
+      reverseOrbit={true}
+      panSpeed={0.1}
+      ref={controlsRef}
+    />
+    <PerspectiveCamera makeDefault fov={90} position={[5, 0, 0]} zoom={1.8}/>
+  </>
 }
 
 export default Controls

@@ -7,7 +7,13 @@ export default async (
   res: NextApiResponse<star[]>
 ) => {
   try {
-    const stars = await prisma.star.findMany()
+    const stars = await prisma.star.findMany({
+      where: {
+        magnitude: {
+          lt: 5
+        }
+      }
+    })
     res.status(200).json(stars)
   } catch (error) {
     res.status(503)
