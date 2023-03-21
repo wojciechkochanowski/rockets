@@ -10,6 +10,7 @@ function Controls() {
 
   function handleWheel(this: HTMLCanvasElement, ev: WheelEvent): any {
     ev.stopPropagation()
+    ev.preventDefault()
     let newZoom = camera.zoom + -1*(ev.deltaY/1000)
     if(newZoom < 1) newZoom = 1
     if(newZoom > 10) newZoom = 10
