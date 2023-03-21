@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+import { SelectionContext } from "@/context/selection/SelectionContext"
 import { star } from "@prisma/client"
 import { Mesh, Vector3 } from "three"
 
@@ -11,10 +13,14 @@ const calculateSize = (magnitude: number): number[] => {
 }
 
 export default function StarPoint({ star }: { star: star }) {
+  const [ state, dispatch ] = useContext(SelectionContext)
   const [radius, segments] = calculateSize(star.magnitude)
 
   const showDetails = () => {
-    alert((star.officialName || star.hr) + "\n" + star.magnitude)
+    dispatch({
+      type: 'SELECT_STAR',
+      star
+    })
   }
 
   const rotate = (self:Mesh) => {
