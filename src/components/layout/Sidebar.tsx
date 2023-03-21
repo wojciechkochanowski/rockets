@@ -1,10 +1,10 @@
-import { useContext } from "react"
-import { Drawer, Box, List, Divider, IconButton } from '@mui/material'
+import { Drawer, Box, Divider, IconButton } from '@mui/material'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import { TLayoutContext, LayoutContext } from "@/context/LayoutContext"
+import DetailTabs from "./DetailTabs"
+import { TDrawerProps } from "../Layout"
 
-export default function Sidebar({ drawerWidth }: { drawerWidth: number }) {
-  const {drawerOpen, setDrawerOpen} = useContext<TLayoutContext>(LayoutContext)
+export default function Sidebar(props: TDrawerProps) {
+  const { drawerWidth, drawerOpen, toggleDrawer} = props
   return (
     <Drawer
       variant="permanent"
@@ -14,6 +14,7 @@ export default function Sidebar({ drawerWidth }: { drawerWidth: number }) {
             position: 'relative',
             whiteSpace: 'nowrap',
             width: drawerWidth,
+            overflowX: 'hidden',
             transition: theme.transitions.create('width', {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.enteringScreen,
@@ -41,15 +42,13 @@ export default function Sidebar({ drawerWidth }: { drawerWidth: number }) {
           ...theme.mixins.toolbar
         })}
       >
-        <IconButton onClick={() => setDrawerOpen(false)}>
+        <IconButton onClick={() => toggleDrawer(false)}>
           <ChevronRightIcon />
         </IconButton>
       </Box>
       <div>
-      <Divider />
-      <List>aaa</List>
-      <Divider />
-      <List>bbb</List>
+        <Divider />
+        <DetailTabs/>
       </div>
     </Drawer>
   )

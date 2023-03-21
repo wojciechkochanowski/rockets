@@ -1,10 +1,9 @@
-import { useContext } from "react"
 import { AppBar, Toolbar, Typography, IconButton } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu'
-import { TLayoutContext, LayoutContext } from "@/context/LayoutContext"
+import { TDrawerProps } from "../Layout"
 
-export default function Header({ drawerWidth }: { drawerWidth: number }) {
-  const {drawerOpen, setDrawerOpen} = useContext<TLayoutContext>(LayoutContext)
+export default function Header(props: TDrawerProps) {
+  const { drawerWidth, drawerOpen, toggleDrawer} = props
   return (
     <AppBar
       position="absolute"
@@ -42,7 +41,7 @@ export default function Header({ drawerWidth }: { drawerWidth: number }) {
         <IconButton
           color="inherit"
           aria-label="Open drawer"
-          onClick={() => setDrawerOpen(true)}
+          onClick={() => toggleDrawer(true)}
           sx={[
             drawerOpen && {
               display: 'none'
