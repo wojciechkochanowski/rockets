@@ -12,7 +12,7 @@ export default function Map() {
   const stars = useStars()
   if (stars) {
     return (
-      <Canvas>
+      <Canvas id="map-canvas-container">
         <Controls />
         <Background />
         <Suspense fallback={null}>

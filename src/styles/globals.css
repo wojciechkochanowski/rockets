@@ -6,3 +6,10 @@ body,
   height: 100%;
   width: 100%;
 }
+
+#map-canvas-container{
+  overflow-x: hidden;
+}
+#map-canvas-container > div{
+  width: 100vw !important;
+}

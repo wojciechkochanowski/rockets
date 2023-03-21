@@ -1,10 +1,6 @@
 import { useContext } from "react"
-import Drawer from '@mui/material/Drawer'
-import Box from '@mui/material/Box'
-import List from '@mui/material/List'
-import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import { Drawer, Box, List, Divider, IconButton } from '@mui/material'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { TLayoutContext, LayoutContext } from "@/context/LayoutContext"
 
 export default function Sidebar({ drawerWidth }: { drawerWidth: number }) {
@@ -41,13 +37,12 @@ export default function Sidebar({ drawerWidth }: { drawerWidth: number }) {
         sx={theme => ({
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'flex-end',
           px: 1,
           ...theme.mixins.toolbar
         })}
       >
         <IconButton onClick={() => setDrawerOpen(false)}>
-          <ChevronLeftIcon />
+          <ChevronRightIcon />
         </IconButton>
       </Box>
       <div>
