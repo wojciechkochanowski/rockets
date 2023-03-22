@@ -1,27 +1,32 @@
 import { useContext } from 'react'
 import { SelectionContext } from '@/context/selection/SelectionContext'
 import { Typography } from '@mui/material'
+import InfoRow from '../widgets/InfoRow'
 
 export default function StarDetails() {
-  const [ {selectedStar: star}, dispatch ] = useContext(SelectionContext)
+  const [{ selectedStar: star }, dispatch] = useContext(SelectionContext)
   if (!star)
-    return <Typography>No star selected</Typography>
+    return <Typography variant='overline'>No star selected</Typography>
   return (
     <dl>
-      <dt>Official Name</dt>
-      <dd>{star.officialName || '-'}</dd>
-      <dt>Henry Draper catalog ID</dt>
-      <dd>{star.hd || '-'}</dd>
-      <dt>Yale Bright Star Catalog ID</dt>
-      <dd>{star.hr || '-'}</dd>
-      <dt>Distance in parsecs</dt>
-      <dd>
+      <InfoRow label="Official Name">
+        {star.officialName || '-'}
+      </InfoRow>
+      <InfoRow label="Henry Draper catalog ID">
+        {star.hd || '-'}
+      </InfoRow>
+      <InfoRow label="Yale Bright Star Catalog ID">
+        {star.hr || '-'}
+      </InfoRow>
+      <InfoRow label="Distance in parsecs">
         {star.distance.toFixed(2)} ({(star.distance * 3.262).toFixed(2)} light years)
-      </dd>
-      <dt>Apparent visual magnitude</dt>
-      <dd>{star.magnitude}</dd>
-      <dt>Color index</dt>
-      <dd>{star.colorIndex || '-'}</dd>
+      </InfoRow>
+      <InfoRow label="Apparent visual magnitude">
+        {star.magnitude}
+      </InfoRow>
+      <InfoRow label="Color index">
+        {star.colorIndex || '-'}
+      </InfoRow>
     </dl>
   )
 }

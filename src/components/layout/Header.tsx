@@ -28,8 +28,8 @@ export default function Header(props: TDrawerProps) {
       <Toolbar>
         <Typography
           component="h1"
-          variant="h6"
-          color="inherit"
+          variant="h5"
+          color="primary.main"
           noWrap
           sx={{
             flexGrow: 1,
@@ -41,12 +41,9 @@ export default function Header(props: TDrawerProps) {
         <IconButton
           color="inherit"
           aria-label="Open drawer"
+          size="small"
           onClick={() => toggleDrawer(true)}
-          sx={[
-            drawerOpen && {
-              display: 'none'
-            }
-          ]}
+          sx={[ drawerOpen && { display: 'none' } ]}
         >
           <MenuIcon />
         </IconButton>

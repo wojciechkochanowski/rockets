@@ -41,7 +41,9 @@ export default function DetailTabs() {
       <TabPanel value={tabOpts.stars}>
         <StarDetails/>
       </TabPanel>
-      <TabPanel value={tabOpts.constellations}>Coming soon...</TabPanel>
+      <TabPanel value={tabOpts.constellations}>
+        <Typography variant="overline">Coming soon...</Typography>
+      </TabPanel>
     </>
   )
 }
