@@ -21,7 +21,7 @@ export default function DetailTabs() {
   
     return (value === selected) && (
       <Box component="div" sx={{ p: 3 }}>
-        <Typography>{children}</Typography>
+        {children}
       </Box>
     ) || null
   }
