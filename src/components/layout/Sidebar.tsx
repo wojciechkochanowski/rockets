@@ -42,7 +42,7 @@ export default function Sidebar(props: TDrawerProps) {
           ...theme.mixins.toolbar
         })}
       >
-        <IconButton onClick={() => toggleDrawer(false)}>
+        <IconButton size='small' onClick={() => toggleDrawer(false)}>
           <ChevronRightIcon />
         </IconButton>
       </Box>
