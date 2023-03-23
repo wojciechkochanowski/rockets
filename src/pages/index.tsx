@@ -1,4 +1,6 @@
+import Layout from '@/components/Layout'
 import Head from 'next/head'
+import LayoutContextProvider from '@/context/selection/SelectionContext'
 import Map from '../components/Map'
 
 export default function Home() {
@@ -10,7 +12,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Map/>
+      <LayoutContextProvider>
+        <Layout>
+          <Map/>
+        </Layout>
+      </LayoutContextProvider>
     </>
   )
 }

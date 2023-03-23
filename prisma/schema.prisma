@@ -17,6 +17,9 @@ model star {
   hd           Int?
   hr           Int?
   colorIndex   Float?  @db.Real
-  magnitude    Float?  @db.Real
+  magnitude    Float   @db.Real
   color        String? @db.VarChar(6)
+  r            Float   @db.Real
+  g            Float   @db.Real
+  b            Float   @db.Real
 }
