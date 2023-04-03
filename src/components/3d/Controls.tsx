@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef, forwardRef, useCallback, useImperativeHandle } from "react"
+import { useState, useEffect, useRef, forwardRef, useCallback, useImperativeHandle, useContext } from "react"
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei"
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import { Camera, useFrame } from "@react-three/fiber"
 import { Vector3 } from "three"
 import { equals } from "@/utils/vector"
+import { MapContext } from "@/context/map/MapContext"
 
 type TComponentProps = {
   camera: Camera,
@@ -16,6 +17,7 @@ export type TControlsHandle = {
 
 const Controls = forwardRef<TControlsHandle, TComponentProps>(({camera, domElement}, ref) => {
   const controlsRef = useRef<OrbitControlsImpl>(null)  
+  const [ {zoom}, dispatch ] = useContext(MapContext)
   const [camDestPos, setCamDestPos] = useState<Vector3 | null>(null)
 
   useImperativeHandle(ref, () => ({
@@ -33,6 +35,7 @@ const Controls = forwardRef<TControlsHandle, TComponentProps>(({camera, domEleme
     if(controlsRef.current)
       controlsRef.current.rotateSpeed = 2 / newZoom
     camera.zoom = newZoom
+    dispatch({type: 'SET_ZOOM', zoom: newZoom})
     camera.updateProjectionMatrix()
   }, [camera])
 
@@ -60,8 +63,9 @@ const Controls = forwardRef<TControlsHandle, TComponentProps>(({camera, domEleme
       enableZoom={false}
       reverseOrbit={true}
       ref={controlsRef}
+      onStart={() => { setCamDestPos(null) }}
     />
-    <PerspectiveCamera makeDefault fov={90} position={[5, 0, 0]} zoom={2}/>
+    <PerspectiveCamera makeDefault fov={90} position={[5, 0, 0]} zoom={zoom}/>
   </>
 })
 

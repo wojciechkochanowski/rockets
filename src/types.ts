@@ -12,3 +12,12 @@ export type TSelectionAction =
 | { type: 'SET_NAMED_STARS'; namedStars: star[] }
 | { type: 'SELECT_STAR'; star: star }
 | { type: 'TOGGLE_DRAWER'; drawerOpen?: boolean }
+
+
+export type TMapContext = {
+  zoom: number
+}
+
+export type TMapAction = 
+| { type: 'SET_ZOOM'; zoom: number }
+
