@@ -49,9 +49,10 @@ export default function Layout({children}: { children?: ReactNode }) {
         <Box 
           component="div"
           className="content"
-          sx={{
-            flexGrow: 1
-          }}
+          sx={theme => ({
+            flexGrow: 1,
+            maxHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`
+          })}
         >
           { children }
         </Box>

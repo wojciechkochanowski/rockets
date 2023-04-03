@@ -1,38 +1,25 @@
+import { useContext, useEffect, useRef } from "react"
 import useStars from "@/hooks/useStars"
-import { EffectComposer, Bloom } from '@react-three/postprocessing'
-import { Canvas, useThree } from "@react-three/fiber"
-import { Suspense } from "react"
-import StarPoint from "./3d/StarPoint"
-import Controls from "./3d/Controls"
-import Background from "./3d/Background"
+import { Canvas } from "@react-three/fiber"
 import CircularProgress from "@mui/material/CircularProgress"
 import Grid from "@mui/material/Grid"
-import { star } from "@prisma/client"
-
-function MapContent({ stars }: { stars: star[] }) {
-  const { camera, gl: { domElement } } = useThree();
-  return (
-    <>
-      <Controls camera={camera} domElement={domElement}/>
-      <Background />
-      <Suspense fallback={null}>
-        <EffectComposer>
-          <Bloom luminanceThreshold={1} intensity={0.85} levels={9} mipmapBlur />
-        </EffectComposer>
-        {stars.map(star =>
-          <StarPoint star={star} key={star.id} />
-        )}
-      </Suspense>
-    </>
-  )
-}
+import { SelectionContext } from '@/context/selection/SelectionContext'
+import MapEngine from "./3d/MapEngine"
+import { TControlsHandle } from "./3d/Controls"
 
 export default function Map() {
   const stars = useStars()  
+  const engine = useRef<TControlsHandle>(null)
+  const [{ selectedStar }, dispatch] = useContext(SelectionContext)
+  useEffect(() => {
+    if (engine.current && selectedStar){
+      engine.current.lookAt(selectedStar.x, selectedStar.y, selectedStar.z)
+    }
+  }, [selectedStar])
   if (stars) {
     return (
       <Canvas id="map-canvas-container">
-        <MapContent stars={stars}/>
+        <MapEngine stars={stars} ref={engine}/>
       </Canvas>
     )
   } else {
