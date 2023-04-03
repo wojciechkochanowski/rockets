@@ -6,6 +6,7 @@ import { SelectionContext } from '@/context/selection/SelectionContext'
 import StarPoint from "./StarPoint"
 import Controls, { TControlsHandle } from "./Controls"
 import Background from "./Background"
+import MapContextProvider from "@/context/map/MapContext"
 
 type TComponentProps = {
   stars: star[]
@@ -21,7 +22,7 @@ const MapEngine = ({ stars }: TComponentProps) => {
     }
   }, [selectedStar])
   return (
-    <>
+    <MapContextProvider>
       <Background />
       <Controls camera={camera} domElement={domElement} ref={controls}/>
       <Suspense fallback={null}>
@@ -32,7 +33,7 @@ const MapEngine = ({ stars }: TComponentProps) => {
           <StarPoint star={star} key={star.id} />
         )}
       </Suspense>
-    </>
+    </MapContextProvider>
   )
 }
 
