@@ -1,16 +1,20 @@
 import { useContext } from 'react'
 import { SelectionContext } from '@/context/selection/SelectionContext'
-import { Typography } from '@mui/material'
-import InfoRow from '../widgets/InfoRow'
+import InfoRow from '../../widgets/InfoRow'
+import StarAutocomplete from './StarAutocomplete'
 
 export default function StarDetails() {
-  const [{ selectedStar: star }, dispatch] = useContext(SelectionContext)
+  const [{ selectedStar: star, namedStars }, dispatch] = useContext(SelectionContext)
   if (!star)
-    return <Typography variant='overline'>No star selected</Typography>
+    return <StarAutocomplete options={namedStars} dispatch={dispatch}/>
   return (
     <dl>
       <InfoRow label="Official Name">
-        {star.officialName || '-'}
+        <StarAutocomplete 
+          options={namedStars} 
+          dispatch={dispatch}
+          placeholder={star.officialName || '-'}
+        />
       </InfoRow>
       <InfoRow label="Henry Draper catalog ID">
         {star.hd || '-'}
