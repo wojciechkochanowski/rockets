@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Tabs, Tab, Typography, Box } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import StarDetails from "../views/StarDetails";
+import StarDetails from "../views/StarDetails/StarDetails";
 
 enum tabOpts {
   stars = 'stars',
