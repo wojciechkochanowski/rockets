@@ -1,7 +1,7 @@
 import { useContext, useRef, useLayoutEffect } from 'react'
 import { SelectionContext } from "@/context/selection/SelectionContext"
-import { star } from "@prisma/client"
 import { Mesh, Vector3 } from "three"
+import { TStar } from "@/types"
 import Ring from './Ring'
 
 const calculateSize = (magnitude: number): number[] => {
@@ -13,7 +13,7 @@ const calculateSize = (magnitude: number): number[] => {
   return [0.08, 4]
 }
 
-export default function StarPoint({ star }: { star: star }) {
+export default function StarPoint({ star }: { star: TStar }) {
   const [ {selectedStar}, dispatch ] = useContext(SelectionContext)
   const ref = useRef<Mesh>(null)
   const [radius, segments] = calculateSize(star.magnitude)

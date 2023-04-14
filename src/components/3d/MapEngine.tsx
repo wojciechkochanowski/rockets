@@ -1,15 +1,15 @@
 import { Suspense, useContext, useEffect, useRef } from "react"
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import { useThree } from "@react-three/fiber"
-import { star } from "@prisma/client"
 import { SelectionContext } from '@/context/selection/SelectionContext'
+import { TStar } from "@/types"
 import StarPoint from "./StarPoint"
 import Controls, { TControlsHandle } from "./Controls"
 import Background from "./Background"
 import MapContextProvider from "@/context/map/MapContext"
 
 type TComponentProps = {
-  stars: star[]
+  stars: TStar[]
 }
 
 const MapEngine = ({ stars }: TComponentProps) => {
