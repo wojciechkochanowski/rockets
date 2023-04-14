@@ -16,6 +16,9 @@ export default function StarDetails() {
           placeholder={star.officialName || '-'}
         />
       </InfoRow>
+      <InfoRow label="Constellation">
+        {star.constellation?.name || '-'}
+      </InfoRow>
       <InfoRow label="Henry Draper catalog ID">
         {star.hd || '-'}
       </InfoRow>
@@ -30,9 +33,6 @@ export default function StarDetails() {
       </InfoRow>
       <InfoRow label="Color index">
         {star.colorIndex || '-'}
-      </InfoRow>
-      <InfoRow label="Constellation">
-        {star.constellation?.name || '-'}
       </InfoRow>
     </dl>
   )
