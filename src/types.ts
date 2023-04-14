@@ -1,16 +1,20 @@
-import { star } from "@prisma/client"
+import { Prisma } from '@prisma/client'
 
-export type TNamedStar = Omit<star, 'officialName'> & {officialName: string}
+export type TStar = Prisma.starGetPayload<{
+  include: { constellation: true }
+}>
+
+export type TNamedStar = Omit<TStar, 'officialName'> & {officialName: string}
 
 export type TSelectionContext = {
   drawerOpen: boolean,
-  selectedStar: star | null,
+  selectedStar: TStar | null,
   namedStars: TNamedStar[]
 }
 
 export type TSelectionAction = 
-| { type: 'SET_NAMED_STARS'; namedStars: star[] }
-| { type: 'SELECT_STAR'; star: star }
+| { type: 'SET_NAMED_STARS'; namedStars: TStar[] }
+| { type: 'SELECT_STAR'; star: TStar }
 | { type: 'TOGGLE_DRAWER'; drawerOpen?: boolean }
 
 

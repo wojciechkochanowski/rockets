@@ -1,17 +1,17 @@
 import { useState, useEffect, useContext } from "react"
-import { redirect } from 'next/navigation';
-import { star } from "@prisma/client";
-import { SelectionContext } from "@/context/selection/SelectionContext";
+import { redirect } from 'next/navigation'
+import { TStar } from "@/types"
+import { SelectionContext } from "@/context/selection/SelectionContext"
 import { TNamedStar } from "@/types";
 
 export default function useStars() {
-  const [stars, setStars] = useState<star[] | null>(null)
+  const [stars, setStars] = useState<TStar[] | null>(null)
   const [, dispatch] = useContext(SelectionContext)
   useEffect(() => {
     try {
       const fetchData = async () => {
         const response = await fetch('/api/allstars')
-        const stars: star[] = await response.json()
+        const stars: TStar[] = await response.json()
         const namedStars = stars.filter((star): star is TNamedStar => (star.officialName !== null))
                                 .sort((a,b) => a.officialName.localeCompare(b.officialName))
         dispatch({

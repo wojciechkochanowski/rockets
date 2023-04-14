@@ -31,6 +31,9 @@ export default function StarDetails() {
       <InfoRow label="Color index">
         {star.colorIndex || '-'}
       </InfoRow>
+      <InfoRow label="Constellation">
+        {star.constellation?.name || '-'}
+      </InfoRow>
     </dl>
   )
 }
