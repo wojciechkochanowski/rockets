@@ -1,8 +1,7 @@
 import useStars from "@/hooks/useStars"
 import { Canvas } from "@react-three/fiber"
-import CircularProgress from "@mui/material/CircularProgress"
-import Grid from "@mui/material/Grid"
 import MapEngine from "./3d/MapEngine"
+import CenteredProgress from "./widgets/CenteredProgress"
 
 export default function Map() {
   const stars = useStars()  
@@ -13,17 +12,6 @@ export default function Map() {
       </Canvas>
     )
   } else {
-    return (
-      <Grid
-        container
-        alignItems="center"
-        justifyContent="center"
-        sx={{
-          height: '100%'
-        }}
-      >
-        <CircularProgress />
-      </Grid>
-    )
+    return <CenteredProgress/>
   }
 }

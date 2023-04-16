@@ -1,8 +1,9 @@
 import { useContext, useRef, useLayoutEffect } from 'react'
 import { SelectionContext } from "@/context/selection/SelectionContext"
 import { Mesh, Vector3 } from "three"
-import { TStar } from "@/types"
+import { TColor, TStar } from "@/types"
 import Ring from './Ring'
+import StarHighlight from './StarHighlight'
 
 const calculateSize = (magnitude: number): number[] => {
   if (magnitude < 0) return [0.55, 9]
@@ -13,11 +14,16 @@ const calculateSize = (magnitude: number): number[] => {
   return [0.08, 4]
 }
 
-export default function StarPoint({ star }: { star: TStar }) {
-  const [ {selectedStar}, dispatch ] = useContext(SelectionContext)
+type TComponentProps = {
+  star: TStar,
+  isSelected: Boolean,
+  highlight: TColor
+}
+
+const StarPoint = ({ star, isSelected, highlight }: TComponentProps) => {
+  const [ context, dispatch ] = useContext(SelectionContext)
   const ref = useRef<Mesh>(null)
   const [radius, segments] = calculateSize(star.magnitude)
-  const isSelected = selectedStar?.id === star.id
 
   const showDetails = () => {
     dispatch({
@@ -26,15 +32,17 @@ export default function StarPoint({ star }: { star: TStar }) {
     })
   }
 
-  
   useLayoutEffect(() => {
     if (ref.current) {
       ref.current.lookAt(new Vector3(0, 0, 0))
     }
-  }, []);
+  }, [])
 
   return (
     <>
+      { highlight && 
+        <StarHighlight position={[star.x, star.y, star.z]} color={highlight} size={radius}/>
+      }
       <mesh 
         ref={ref}
         position={[star.x, star.y, star.z]}
@@ -51,3 +59,5 @@ export default function StarPoint({ star }: { star: TStar }) {
     </>
   )
 }
+
+export default StarPoint

@@ -5,6 +5,7 @@ import { Camera, useFrame } from "@react-three/fiber"
 import { Vector3 } from "three"
 import { equals } from "@/utils/vector"
 import { MapContext } from "@/context/map/MapContext"
+import { TStar } from "@/types"
 
 type TComponentProps = {
   camera: Camera,
@@ -12,7 +13,8 @@ type TComponentProps = {
 }
 
 export type TControlsHandle = {
-  lookAt: (x:number, y:number, z: number) => void
+  lookAtStar: (star: TStar) => void,
+  lookAtConstellation: (stars: TStar[]) => void
 }
 
 const Controls = forwardRef<TControlsHandle, TComponentProps>(({camera, domElement}, ref) => {
@@ -21,7 +23,16 @@ const Controls = forwardRef<TControlsHandle, TComponentProps>(({camera, domEleme
   const [camDestPos, setCamDestPos] = useState<Vector3 | null>(null)
 
   useImperativeHandle(ref, () => ({
-    lookAt: (x, y, z) => {
+    lookAtStar: (star) => {
+      const {x, y, z} = star
+      setCamDestPos(new Vector3(-1*x/20, -1*y/20, -1*z/20))
+    },
+    lookAtConstellation: (stars) => {
+      const {x, y, z} = {
+        x: stars.reduce((total, star) => total + star.x, 0) / stars.length,
+        y: stars.reduce((total, star) => total + star.y, 0) / stars.length,
+        z: stars.reduce((total, star) => total + star.z, 0) / stars.length
+      }
       setCamDestPos(new Vector3(-1*x/20, -1*y/20, -1*z/20))
     }
   }))

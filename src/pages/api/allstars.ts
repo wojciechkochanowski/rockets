@@ -13,22 +13,8 @@ export default async (
           lt: 5
         }
       },
-      select: {
-        id: true,
-        x: true,
-        y: true,
-        z: true,
-        distance: true,
-        officialName: true,
-        hd: true,
-        hr: true,
-        colorIndex: true,
-        magnitude: true,
-        r: true,
-        g: true,
-        b: true,
-        constellation: true,
-        constellationId: true
+      include: {
+        constellation: true
       },
     })
     res.status(200).json(stars)
