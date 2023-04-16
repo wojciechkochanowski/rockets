@@ -3,15 +3,9 @@ import { Autocomplete, Chip, TextField } from '@mui/material'
 import { SelectionContext } from '@/context/selection/SelectionContext'
 import useConstellations from '@/hooks/useConstellations'
 import CenteredProgress from '@/components/widgets/CenteredProgress'
-import { TColor, TConstellation } from '@/types'
+import { TConstellation } from '@/types'
+import { rgba } from '@/utils/misc'
 import colorPicker from './ColorPicker'
-
-const rgba = (color: TColor) => {
-  if (!color){
-    return 'rgba(255, 255, 255, 0.16)'
-  }
-  return `rgb(${color[0]}, ${color[1]}, ${color[2]})`
-}
 
 export default function Constellations() {
   const constellations = useConstellations()
@@ -26,7 +20,7 @@ export default function Constellations() {
   const handleChange = (event: SyntheticEvent<Element, Event>, value: TConstellation[]) => {
     setSelectedConstellations(value.map(constellation => {
       if(!constellation.color){
-        constellation.color = colorPicker(value.length)
+        constellation.color = colorPicker(value.length-1)
       }
       return constellation
     }))

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { redirect } from 'next/navigation'
-import { TColor, TConstellation } from "@/types";
+import { TColor, TConstellation } from "@/types"
 
 export default function useConstellations() {
   const [constellations, setConstellations] = useState<TConstellation[] | null>(null)
