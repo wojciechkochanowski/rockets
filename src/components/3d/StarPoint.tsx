@@ -1,8 +1,9 @@
-import { useContext, useRef, useLayoutEffect } from 'react'
+import { useContext, useRef, useLayoutEffect, useEffect, useState } from 'react'
 import { SelectionContext } from "@/context/selection/SelectionContext"
 import { Mesh, Vector3 } from "three"
-import { TStar } from "@/types"
+import { TColor, TStar } from "@/types"
 import Ring from './Ring'
+import StarHighlight from './StarHighlight'
 
 const calculateSize = (magnitude: number): number[] => {
   if (magnitude < 0) return [0.55, 9]
@@ -14,7 +15,8 @@ const calculateSize = (magnitude: number): number[] => {
 }
 
 export default function StarPoint({ star }: { star: TStar }) {
-  const [ {selectedStar}, dispatch ] = useContext(SelectionContext)
+  const [ {selectedStar, selectedConstellations}, dispatch ] = useContext(SelectionContext)
+  const [ highlight, setHighlight ] = useState<TColor>(false)
   const ref = useRef<Mesh>(null)
   const [radius, segments] = calculateSize(star.magnitude)
   const isSelected = selectedStar?.id === star.id
@@ -26,15 +28,25 @@ export default function StarPoint({ star }: { star: TStar }) {
     })
   }
 
-  
   useLayoutEffect(() => {
     if (ref.current) {
       ref.current.lookAt(new Vector3(0, 0, 0))
     }
-  }, []);
+  }, [])
 
+  useEffect(() => {
+    const constellation = selectedConstellations.find(c => c.id === star.constellationId)
+    if(constellation){
+      setHighlight(constellation.color)
+    } else {
+      setHighlight(false)
+    }
+  }, [selectedConstellations])
   return (
     <>
+      { highlight && 
+        <StarHighlight position={[star.x, star.y, star.z]} color={highlight} size={radius}/>
+      }
       <mesh 
         ref={ref}
         position={[star.x, star.y, star.z]}

@@ -18,7 +18,13 @@ const selectionReducer = (state:TSelectionContext, action: TSelectionAction): TS
         ...state,
         drawerOpen: !state.drawerOpen
       }
+    case 'SELECT_CONSTELLATIONS':
+      return {
+        ...state,
+        selectedConstellations: action.constellations
+      }
   }
+  const _exhaustiveCheck: never = action
   return state
 }
 export default selectionReducer

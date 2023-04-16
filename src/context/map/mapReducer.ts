@@ -8,6 +8,7 @@ const mapReducer = (state:TMapContext, action: TMapAction): TMapContext => {
         zoom: action.zoom
       }
   }
+  const _exhaustiveCheck: never = action.type
   return state
 }
 export default mapReducer

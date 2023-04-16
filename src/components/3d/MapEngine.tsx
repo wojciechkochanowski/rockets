@@ -27,7 +27,7 @@ const MapEngine = ({ stars }: TComponentProps) => {
       <Controls camera={camera} domElement={domElement} ref={controls}/>
       <Suspense fallback={null}>
         <EffectComposer>
-          <Bloom luminanceThreshold={1} intensity={0.85} levels={9} mipmapBlur />
+          <Bloom luminanceThreshold={1} intensity={1.5} levels={9} mipmapBlur />
         </EffectComposer>
         {stars.map(star =>
           <StarPoint star={star} key={star.id} />
