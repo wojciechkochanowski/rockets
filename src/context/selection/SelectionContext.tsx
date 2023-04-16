@@ -4,7 +4,9 @@ import selectionReducer from '@/context/selection/selectionReducer'
 
 const initialValue:TSelectionContext = {
   drawerOpen: false,
-  selectedStar: null
+  selectedStar: null,
+  selectedConstellations: [],
+  namedStars: []
 }
 
 export const SelectionContext = createContext<[

@@ -12,7 +12,10 @@ export default async (
         magnitude: {
           lt: 5
         }
-      }
+      },
+      include: {
+        constellation: true
+      },
     })
     res.status(200).json(stars)
   } catch (error) {

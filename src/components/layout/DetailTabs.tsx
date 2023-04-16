@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { Tabs, Tab, Typography, Box } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import StarDetails from "../views/StarDetails";
+import { Tabs, Tab, Box } from '@mui/material'
+import StarDetails from "../views/StarDetails/StarDetails";
+import Constellations from "../views/Constellations";
 
 enum tabOpts {
   stars = 'stars',
@@ -20,7 +20,7 @@ export default function DetailTabs() {
     const { children, value } = props;
   
     return (value === selected) && (
-      <Box component="div" sx={{ p: 3 }}>
+      <Box component="div" sx={{ py: 3, px: 1.5 }}>
         {children}
       </Box>
     ) || null
@@ -42,7 +42,7 @@ export default function DetailTabs() {
         <StarDetails/>
       </TabPanel>
       <TabPanel value={tabOpts.constellations}>
-        <Typography variant="overline">Coming soon...</Typography>
+        <Constellations/>
       </TabPanel>
     </>
   )

@@ -7,19 +7,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model constellation {
+  id              Int            @id(map: "constellation_pkey") @default(autoincrement())
+  name            String         @db.VarChar
+  stars           star[]
+}
+
 model star {
-  id           Int     @id(map: "stars_pkey") @default(autoincrement())
-  x            Float
-  y            Float
-  z            Float
-  distance     Float
-  officialName String? @db.VarChar
-  hd           Int?
-  hr           Int?
-  colorIndex   Float?  @db.Real
-  magnitude    Float   @db.Real
-  color        String? @db.VarChar(6)
-  r            Float   @db.Real
-  g            Float   @db.Real
-  b            Float   @db.Real
+  id              Int            @id(map: "stars_pkey") @default(autoincrement())
+  x               Float
+  y               Float
+  z               Float
+  distance        Float
+  officialName    String?        @db.VarChar
+  hd              Int?
+  hr              Int?
+  colorIndex      Float?         @db.Real
+  magnitude       Float          @db.Real
+  r               Float          @db.Real
+  g               Float          @db.Real
+  b               Float          @db.Real
+  constellation   constellation? @relation(fields: [constellationId], references: [id])
+  constellationId Int?
 }
