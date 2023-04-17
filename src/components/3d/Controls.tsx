@@ -48,13 +48,13 @@ const Controls = forwardRef<TControlsHandle, TComponentProps>(({camera, domEleme
     camera.zoom = newZoom
     dispatch({type: 'SET_ZOOM', zoom: newZoom})
     camera.updateProjectionMatrix()
-  }, [camera])
+  }, [camera, dispatch])
 
   useEffect(() => {
     if(camera.parent){ // scene must be initialized, prevents from firing twice
       domElement.addEventListener("wheel", handleWheel);
     }
-  }, [camera])
+  }, [camera, domElement, handleWheel])
 
   useFrame(function renderCallback() {
     if(camera?.parent && camDestPos){
@@ -79,5 +79,6 @@ const Controls = forwardRef<TControlsHandle, TComponentProps>(({camera, domEleme
     <PerspectiveCamera makeDefault fov={90} position={[5, 0, 0]} zoom={zoom}/>
   </>
 })
+Controls.displayName = 'Controls'
 
 export default Controls

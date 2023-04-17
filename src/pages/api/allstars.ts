@@ -2,10 +2,10 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../../lib/prisma'
 import { star } from '@prisma/client'
 
-export default async (
+export default async function allStars(
   req: NextApiRequest,
   res: NextApiResponse<star[]>
-) => {
+) {
   try {
     const stars = await prisma.star.findMany({
       where: {

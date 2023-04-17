@@ -30,7 +30,7 @@ export default function Ring({position: [x, y, z]}: TComponentProps) {
       line.current.lookAt(new Vector3(0, 0, 0))
       line.current.computeLineDistances()
     }
-  }, [zoom]);
+  }, [zoom, points]);
 
   return (
     <line_ ref={line} position={[x, y, z]}>
