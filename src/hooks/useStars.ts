@@ -9,6 +9,7 @@ export default function useStars() {
   const [, dispatch] = useContext(SelectionContext)
   useEffect(() => {
     try {
+      console.log('fetch stars')
       const fetchData = async () => {
         const response = await fetch('/api/allstars')
         const stars: TStar[] = await response.json()
@@ -25,6 +26,6 @@ export default function useStars() {
       console.log(error)
       redirect('/noconnection')
     }
-  }, [])
+  }, [dispatch])
   return stars
 }
