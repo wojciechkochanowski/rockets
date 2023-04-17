@@ -32,7 +32,7 @@ const MapEngine = ({ stars }: TComponentProps) => {
       const constellationStars = stars.filter(s => s.constellationId === newSelected.id)
       controls.current.lookAtConstellation(constellationStars)
     }
-  }, [selectedConstellations])
+  }, [selectedConstellations, prevConstellations, stars])
   
   return (
     <MapContextProvider>
