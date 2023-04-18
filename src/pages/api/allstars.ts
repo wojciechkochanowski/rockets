@@ -18,7 +18,7 @@ export default async function allStars(
       },
     })
     res.status(200).json(stars)
-  } catch (error) {
-    res.status(503)
+  } catch (error: any) {
+    res.status(200).json(error)
   }
 }
