@@ -6,6 +6,7 @@ import { Vector3 } from "three"
 import { equals } from "@/utils/vector"
 import { MapContext } from "@/context/map/MapContext"
 import { TStar } from "@/types"
+import { addPinchHandlers, makeWheelHandler } from "./zoomHandlers"
 
 type TComponentProps = {
   camera: Camera,
@@ -37,22 +38,15 @@ const Controls = forwardRef<TControlsHandle, TComponentProps>(({camera, domEleme
     }
   }))
 
-  const handleWheel = useCallback(function handleWheel(this: HTMLCanvasElement, ev: WheelEvent): any {
-    ev.stopPropagation()
-    ev.preventDefault()
-    let newZoom = camera.zoom + -1*(ev.deltaY/1000)
-    if(newZoom < 1) newZoom = 1
-    if(newZoom > 10) newZoom = 10
-    if(controlsRef.current)
-      controlsRef.current.rotateSpeed = 2 / newZoom
-    camera.zoom = newZoom
-    dispatch({type: 'SET_ZOOM', zoom: newZoom})
-    camera.updateProjectionMatrix()
-  }, [camera, dispatch])
+  const handleWheel = useCallback(
+    makeWheelHandler(camera, controlsRef, dispatch), 
+    [camera, dispatch]
+  )
 
   useEffect(() => {
     if(camera.parent){ // scene must be initialized, prevents from firing twice
-      domElement.addEventListener("wheel", handleWheel);
+      domElement.addEventListener("wheel", handleWheel)
+      addPinchHandlers(domElement, camera, controlsRef, dispatch)
     }
   }, [camera, domElement, handleWheel])
 
@@ -73,6 +67,7 @@ const Controls = forwardRef<TControlsHandle, TComponentProps>(({camera, domEleme
       target={[0, 0, 0]}
       enableZoom={false}
       reverseOrbit={true}
+      rotateSpeed={0.6}
       ref={controlsRef}
       onStart={() => { setCamDestPos(null) }}
     />
