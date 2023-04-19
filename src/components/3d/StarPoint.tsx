@@ -45,13 +45,18 @@ const StarPoint = ({ star, isSelected, highlight }: TComponentProps) => {
       }
       <mesh 
         ref={ref}
-        position={[star.x, star.y, star.z]}
-        onClick={showDetails}>
-        <circleGeometry attach="geometry" args={[radius, segments]} />
+        position={[star.x, star.y, star.z]}>
+        <circleGeometry args={[radius, segments]} />
         <meshBasicMaterial
           color={[star.r, star.g, star.b]}
           toneMapped={star.magnitude > 2}
         />
+      </mesh>
+      <mesh
+        position={[star.x, star.y, star.z]}
+        onClick={showDetails}>
+        <sphereGeometry args={[1, 4, 4]} />
+        <meshBasicMaterial opacity={0} transparent={true}/>
       </mesh>
       { isSelected &&
         <Ring position={[star.x, star.y, star.z]}/>
