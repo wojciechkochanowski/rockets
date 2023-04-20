@@ -53,7 +53,7 @@ const StarPoint = ({ star, isSelected, highlight }: TComponentProps) => {
         />
       </mesh>
       <mesh
-        position={[star.x, star.y, star.z]}
+        position={[star.x*1.01, star.y*1.01, star.z*1.01]}
         onClick={showDetails}>
         <sphereGeometry args={[1, 4, 4]} />
         <meshBasicMaterial opacity={0} transparent={true}/>
