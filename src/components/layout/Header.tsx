@@ -25,15 +25,14 @@ export default function Header(props: TDrawerProps) {
         }))
       ]}
     >
-      <Toolbar>
+      <Toolbar sx={{px: 1}}>
         <Typography
           component="h1"
           variant="h5"
           color="primary.main"
           noWrap
           sx={{
-            flexGrow: 1,
-            pl: 2
+            flexGrow: 1
           }}
         >
           Rockets
