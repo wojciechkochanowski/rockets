@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { AppBar, Toolbar, Typography, IconButton } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu'
 import { TDrawerProps } from "../Layout"
@@ -32,10 +33,12 @@ export default function Header(props: TDrawerProps) {
           color="primary.main"
           noWrap
           sx={{
-            flexGrow: 1
+            flexGrow: 1,
+            display: 'flex',
+            alignItems: 'center'
           }}
         >
-          Rockets
+          <Image src='/logo.png' width={125} height={25} alt='Rockets' />
         </Typography>
         <IconButton
           color="inherit"
